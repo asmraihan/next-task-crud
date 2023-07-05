@@ -30,21 +30,20 @@ interface TaskRowProps {
 const TaskRow: React.FC<TaskRowProps> = ({ task }) => {
     const router = useRouter()
     const [editTaskValue, setEditTaskValue] = useState<string>(task.text)
-    
+    const [open, setOpen] = useState(false)
+
     const handleSubmitEditTodo = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault()
         await editTodo({
             id: task.id,
             text: editTaskValue,
         })
-        setEditTaskValue('')
         router.refresh()
+        setOpen(false)
     }
 
-    const handleDeleteTask = async () => {
-        await deleteTodo({
-            id: task.id,
-        })
+    const handleDeleteTask = async (id: string) => {
+        await deleteTodo(id)
         router.refresh()
     }
 
@@ -57,12 +56,12 @@ const TaskRow: React.FC<TaskRowProps> = ({ task }) => {
 
                 {/* edit btn modal */}
 
-                <Dialog>
+                <Dialog open={open} onOpenChange={setOpen}>
                     <DialogTrigger className='flex justify-center items-center w-full'>
                         <Edit className="text-blue-600 cursor-pointer" size={20}></Edit> {/* FIX HYDRATION */}
                     </DialogTrigger>
 
-                    <DialogContent className="sm:max-w-[425px]">
+                    <DialogContent  className="sm:max-w-[425px]">
                         <form onSubmit={handleSubmitEditTodo}>
                             <DialogHeader>
                                 <DialogTitle>Edit Task</DialogTitle>
@@ -105,7 +104,7 @@ const TaskRow: React.FC<TaskRowProps> = ({ task }) => {
                         </AlertDialogHeader>
                         <AlertDialogFooter>
                             <AlertDialogCancel>Cancel</AlertDialogCancel>
-                            <AlertDialogAction onClick={()=> handleDeleteTask(task)}>Continue</AlertDialogAction>
+                            <AlertDialogAction onClick={()=> handleDeleteTask(task.id)}>Continue</AlertDialogAction>
                         </AlertDialogFooter>
                     </AlertDialogContent>
                 </AlertDialog>

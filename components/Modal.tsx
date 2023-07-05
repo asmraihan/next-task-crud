@@ -25,7 +25,7 @@ interface ModalProps {
 const Modal: React.FC<ModalProps> = ({ children }) => {
     const router = useRouter()
     const [newTaskValue, setNewTaskValue] = useState<string>('')
-
+    const [open, setOpen] = useState(false)
     const handleSubmitNewTodo = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault()
         await addTodo({
@@ -34,12 +34,14 @@ const Modal: React.FC<ModalProps> = ({ children }) => {
         })
         setNewTaskValue('')
         router.refresh()
+        setOpen(false)
     }
 
     return (
-        <Dialog>
+        <Dialog open={open} onOpenChange={setOpen}>
             <DialogTrigger className='flex justify-center items-center w-full'>
-                <Button size='default' variant='default' className='w-full'>Add New Task <Plus className="ml-2" color="white" size={24} /></Button> {/* FIX HYDRATION */}
+                <div className='w-full bg-primary flex justify-center items-center text-white rounded-md hover:bg-primary/90 transition-all duration-300 p-2'>Add New Task <Plus className="ml-2" color="white" size={24} /></div> 
+                {/* FIX HYDRATION */}
             </DialogTrigger>
 
             <DialogContent className="sm:max-w-[425px]">
