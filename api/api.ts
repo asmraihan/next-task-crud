@@ -20,3 +20,17 @@ export const addTodo = async (todo: InterfaceTask): Promise<InterfaceTask> => {
     const newTodo = await res.json()
     return newTodo
 }
+
+export const editTodo = async (todo: InterfaceTask): Promise<InterfaceTask> => {
+    const res = await fetch (`${baseUrl}/tasks/${todo.id}`,{
+        method: 'PUT',
+        headers: {
+            'content-type': 'application/json'
+        },
+        body: JSON.stringify(todo)
+    })
+    const updatedTodo = await res.json()
+    return updatedTodo
+}
+
+

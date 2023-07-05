@@ -23,8 +23,7 @@ const TodoList: React.FC<TodoListProps> = ({tasks}) => {
     <TableRow>
       <TableHead className="w-[100px]">#</TableHead>
       <TableHead>Task</TableHead>
-      <TableHead>Method</TableHead>
-      <TableHead className="text-right">Actions</TableHead>
+      <TableHead>Action</TableHead>
     </TableRow>
   </TableHeader>
   <TableBody>

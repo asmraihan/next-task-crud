@@ -47,7 +47,7 @@ const Modal: React.FC<ModalProps> = ({ children }) => {
                <DialogHeader>
                     <DialogTitle>Add New Task</DialogTitle>
                     <DialogDescription>
-                        Make changes to your profile here. Click save when you're done.
+                     Create new
                     </DialogDescription>
                 </DialogHeader>
                 <div className="grid gap-4 py-4">
