@@ -7,9 +7,13 @@ import {
 } from "@/components/ui/alert"
 import TodoList from "@/components/TodoList";
 import AddTask from "@/components/AddTask";
+import { getAllTodos } from "@/api/api";
 
+export default async function Home() {
 
-export default function Home() {
+  const tasks = await getAllTodos()
+  console.log(tasks)
+
   return (
     <main className="p-4 max-w-4xl mx-auto h-full flex flex-col justify-center">
       <Alert>
@@ -20,7 +24,7 @@ export default function Home() {
         </AlertDescription>
       </Alert>
       <AddTask></AddTask>
-      <TodoList></TodoList>
+      <TodoList tasks={tasks}></TodoList>
     </main>
   )
 }
