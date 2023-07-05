@@ -34,3 +34,10 @@ export const editTodo = async (todo: InterfaceTask): Promise<InterfaceTask> => {
 }
 
 
+export const deleteTodo = async (todo: InterfaceTask): Promise<void> => { 
+    await fetch (`${baseUrl}/tasks/${todo.id}`,{
+        method: 'DELETE',
+    })
+}
+
+

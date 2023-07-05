@@ -22,7 +22,7 @@ import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, D
 import { Input } from "./ui/input"
 import { Label } from "./ui/label"
 import { useRouter } from "next/navigation"
-import { editTodo } from "@/api/api"
+import { deleteTodo, editTodo } from "@/api/api"
 
 interface TaskRowProps {
     task: InterfaceTask
@@ -30,6 +30,7 @@ interface TaskRowProps {
 const TaskRow: React.FC<TaskRowProps> = ({ task }) => {
     const router = useRouter()
     const [editTaskValue, setEditTaskValue] = useState<string>(task.text)
+    
     const handleSubmitEditTodo = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault()
         await editTodo({
@@ -37,6 +38,13 @@ const TaskRow: React.FC<TaskRowProps> = ({ task }) => {
             text: editTaskValue,
         })
         setEditTaskValue('')
+        router.refresh()
+    }
+
+    const handleDeleteTask = async () => {
+        await deleteTodo({
+            id: task.id,
+        })
         router.refresh()
     }
 
@@ -97,7 +105,7 @@ const TaskRow: React.FC<TaskRowProps> = ({ task }) => {
                         </AlertDialogHeader>
                         <AlertDialogFooter>
                             <AlertDialogCancel>Cancel</AlertDialogCancel>
-                            <AlertDialogAction>Continue</AlertDialogAction>
+                            <AlertDialogAction onClick={()=> handleDeleteTask(task)}>Continue</AlertDialogAction>
                         </AlertDialogFooter>
                     </AlertDialogContent>
                 </AlertDialog>
