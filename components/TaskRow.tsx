@@ -52,7 +52,7 @@ const TaskRow: React.FC<TaskRowProps> = ( { task }) => {
 
     return (
         <TableRow key={task.id}>
-            <TableCell className="font-medium">n</TableCell>
+            <TableCell className="font-medium">{task.id}</TableCell>
             <TableCell className="w-full">{task.text}</TableCell>
             {/* <TableCell>Credit Card</TableCell> */}
             <TableCell className="text-right flex justify-center items-center gap-2">

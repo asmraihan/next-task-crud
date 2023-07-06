@@ -1,16 +1,16 @@
 import { InterfaceTask } from "@/types/tasks"
 
-const baseUrl = 'http://localhost:3001'
+const baseUrl = 'https://64a6c66d096b3f0fcc808fb7.mockapi.io/'
 
 export const getAllTodos = async (): Promise<InterfaceTask[]> => {
-    const res = await fetch (`${baseUrl}/tasks`, {cache: 'no-store'})
+    const res = await fetch (`${baseUrl}/todos`, {cache: 'no-store'})
     const todos = await res.json()
     return todos
 }
 
 
 export const addTodo = async (todo: InterfaceTask): Promise<InterfaceTask> => {
-    const res = await fetch (`${baseUrl}/tasks`,{
+    const res = await fetch (`${baseUrl}/todos`,{
         method: 'POST',
         headers: {
             'content-type': 'application/json'
@@ -22,7 +22,7 @@ export const addTodo = async (todo: InterfaceTask): Promise<InterfaceTask> => {
 }
 
 export const editTodo = async (todo: InterfaceTask): Promise<InterfaceTask> => {
-    const res = await fetch (`${baseUrl}/tasks/${todo.id}`,{
+    const res = await fetch (`${baseUrl}/todos/${todo.id}`,{
         method: 'PUT',
         headers: {
             'content-type': 'application/json'
