@@ -16,9 +16,10 @@ import TaskRow from "./TaskRow"
   }
 
 const TodoList: React.FC<TodoListProps> = ({tasks}) => {
+
   return (
 <Table>
-  <TableCaption>A list of your recent invoices. Time (17:00)</TableCaption>
+  <TableCaption>Time: {Date()}</TableCaption>
   <TableHeader>
     <TableRow>
       <TableHead className="w-[100px]">#</TableHead>

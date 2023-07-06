@@ -57,7 +57,7 @@ const Modal: React.FC<ModalProps> = ({ children }) => {
                         <Label htmlFor="name" className="text-right">
                             Task
                         </Label>
-                        <Input id="name" value={newTaskValue} onChange={e => setNewTaskValue(e.target.value)} className="col-span-3" />
+                        <Input id="name" value={newTaskValue}   autoComplete="off" onChange={e => setNewTaskValue(e.target.value)} className="col-span-3" />
                     </div>
                     {/* <div className="grid grid-cols-4 items-center gap-4">
                         <Label htmlFor="username" className="text-right">

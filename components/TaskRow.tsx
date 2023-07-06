@@ -27,7 +27,10 @@ import { deleteTodo, editTodo } from "@/api/api"
 interface TaskRowProps {
     task: InterfaceTask
 }
-const TaskRow: React.FC<TaskRowProps> = ({ task }) => {
+const TaskRow: React.FC<TaskRowProps> = ( { task }) => {
+ 
+
+  
     const router = useRouter()
     const [editTaskValue, setEditTaskValue] = useState<string>(task.text)
     const [open, setOpen] = useState(false)
@@ -74,7 +77,7 @@ const TaskRow: React.FC<TaskRowProps> = ({ task }) => {
                                     <Label htmlFor="name" className="text-right">
                                         Task
                                     </Label>
-                                    <Input id="name" value={editTaskValue} onChange={e => setEditTaskValue(e.target.value)} className="col-span-3" />
+                                    <Input id="name" value={editTaskValue} autoComplete="off" onChange={e => setEditTaskValue(e.target.value)} className="col-span-3" />
                                 </div>
                                 {/* <div className="grid grid-cols-4 items-center gap-4">
                         <Label htmlFor="username" className="text-right">
