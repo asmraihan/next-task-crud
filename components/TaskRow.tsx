@@ -4,33 +4,21 @@ import {
     TableRow,
 } from "@/components/ui/table"
 import { InterfaceTask } from "@/types/tasks"
-import { Edit, Trash2 } from "lucide-react"
+import { Edit } from "lucide-react"
 import React, { useState } from "react"
-import {
-    AlertDialog,
-    AlertDialogAction,
-    AlertDialogCancel,
-    AlertDialogContent,
-    AlertDialogDescription,
-    AlertDialogFooter,
-    AlertDialogHeader,
-    AlertDialogTitle,
-    AlertDialogTrigger,
-} from "@/components/ui/alert-dialog"
+
 import { Button } from "./ui/button"
 import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from "./ui/dialog"
 import { Input } from "./ui/input"
 import { Label } from "./ui/label"
 import { useRouter } from "next/navigation"
 import { deleteTodo, editTodo } from "@/api/api"
+import DeleteDialog from "./delete-dialog"
 
 interface TaskRowProps {
     task: InterfaceTask
 }
-const TaskRow: React.FC<TaskRowProps> = ( { task }) => {
- 
-
-  
+const TaskRow: React.FC<TaskRowProps> = ({ task }) => {
     const router = useRouter()
     const [editTaskValue, setEditTaskValue] = useState<string>(task.text)
     const [open, setOpen] = useState(false)
@@ -58,13 +46,12 @@ const TaskRow: React.FC<TaskRowProps> = ( { task }) => {
             <TableCell className="text-right flex justify-center items-center gap-2">
 
                 {/* edit btn modal */}
-
                 <Dialog open={open} onOpenChange={setOpen}>
                     <DialogTrigger className='flex justify-center items-center w-full'>
                         <Edit className="text-blue-600 cursor-pointer" size={20}></Edit> {/* FIX HYDRATION */}
                     </DialogTrigger>
 
-                    <DialogContent  className="sm:max-w-[425px]">
+                    <DialogContent className="sm:max-w-[425px]">
                         <form onSubmit={handleSubmitEditTodo}>
                             <DialogHeader>
                                 <DialogTitle>Edit Task</DialogTitle>
@@ -94,23 +81,7 @@ const TaskRow: React.FC<TaskRowProps> = ( { task }) => {
                 </Dialog>
 
                 {/* delete btn modal */}
-
-                <AlertDialog>
-                    <AlertDialogTrigger><Trash2 className="text-red-600 cursor-pointer" size={20}></Trash2></AlertDialogTrigger>
-                    <AlertDialogContent>
-                        <AlertDialogHeader>
-                            <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
-                            <AlertDialogDescription>
-                                This action cannot be undone. This will permanently delete your account
-                                and remove your data from our servers.
-                            </AlertDialogDescription>
-                        </AlertDialogHeader>
-                        <AlertDialogFooter>
-                            <AlertDialogCancel>Cancel</AlertDialogCancel>
-                            <AlertDialogAction onClick={()=> handleDeleteTask(task.id)}>Continue</AlertDialogAction>
-                        </AlertDialogFooter>
-                    </AlertDialogContent>
-                </AlertDialog>
+                <DeleteDialog task={task} handleDeleteTask={handleDeleteTask}></DeleteDialog>
 
             </TableCell>
         </TableRow>

@@ -22,11 +22,13 @@ interface ModalProps {
 }
 
 
-const Modal: React.FC<ModalProps> = ({ children }) => {
+const Modal: React.FC<ModalProps> = () => {
     const router = useRouter()
     const [newTaskValue, setNewTaskValue] = useState<string>('')
+    const [isLoading, setIsLoading] = useState<boolean>(false)
     const [open, setOpen] = useState(false)
     const handleSubmitNewTodo = async (e: React.FormEvent<HTMLFormElement>) => {
+        setIsLoading(true)
         e.preventDefault()
         await addTodo({
             id: uuidv4(),
@@ -35,6 +37,7 @@ const Modal: React.FC<ModalProps> = ({ children }) => {
         setNewTaskValue('')
         router.refresh()
         setOpen(false)
+        setIsLoading(false)
     }
 
     return (
@@ -67,7 +70,7 @@ const Modal: React.FC<ModalProps> = ({ children }) => {
                     </div> */}
                 </div>
                 <DialogFooter>
-                    <Button type="submit">Save task</Button>
+                    <Button disabled={isLoading} type="submit">Save task</Button>
                 </DialogFooter>
                </form>
             </DialogContent>
